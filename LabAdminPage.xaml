@@ -1,0 +1,62 @@
+﻿<Page x:Class="LabSoftwareAdminSys.LabAdminPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:LabSoftwareAdminSys"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="1000"
+      Title="LabAdminPage">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="23*"/>
+            <RowDefinition Height="2*"/>
+        </Grid.RowDefinitions>
+        <TextBox x:Name="Addr" HorizontalAlignment="Left" Margin="80,0,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="104" Height="20" TextChanged="Addr_TextChanged"/>
+        <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Height="20" Width="80" FontSize="16"><Run Text="查找："/><Run Language="zh-cn" Text="地址"/></TextBlock>
+        <DataGrid x:Name="LabList" Margin="0,26,0,10" RowEditEnding="LabList_RowEditEnding" AutoGenerateColumns="False" EnableRowVirtualization="False">
+            <DataGrid.Columns>
+                <DataGridTemplateColumn Header="" Width="Auto">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <CheckBox x:Name="Choose"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTextColumn Header="地址" Width="Auto" Binding="{Binding [0], Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" CanUserSort="False"/>
+                <DataGridTextColumn Header="名称" Width="Auto" Binding="{Binding [1], Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" CanUserSort="False"/>
+                <DataGridTextColumn Header="管理员" Width="Auto" Binding="{Binding [2], Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" CanUserSort="False"/>
+                <DataGridTextColumn Header="容纳人数" Width="Auto" Binding="{Binding [3], Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" CanUserSort="False"/>
+                <DataGridTextColumn Header="电脑型号（附配置）" Width="Auto" Binding="{Binding [4], Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" CanUserSort="False"/>
+                <DataGridTemplateColumn Header="已安装软件列表" Width="Auto">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button x:Name="SoftList" Content="查看详细" Click="SoftList_Click" Tag="{Binding [0]}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTextColumn Header="已安装软件列表内容" Width="Auto" Binding="{Binding [5], Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" CanUserSort="False" IsReadOnly="True"/>
+            </DataGrid.Columns>
+        </DataGrid>
+        <TextBox x:Name="Lname" HorizontalAlignment="Left" Margin="224,0,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Height="20" TextChanged="Lname_TextChanged"/>
+        <TextBox x:Name="Aname" HorizontalAlignment="Left" Margin="400,0,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="60" Height="20" TextChanged="Aname_TextChanged"/>
+        <TextBox x:Name="Cap" HorizontalAlignment="Left" Margin="535,0,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="60" Height="20" TextChanged="Cap_TextChanged"/>
+        <TextBox x:Name="Config" HorizontalAlignment="Left" Margin="671,0,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="60" Height="20" TextChanged="Config_TextChanged"/>
+        <TextBox x:Name="Software" Margin="818,0,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="20" TextChanged="Software_TextChanged"/>
+        <Button x:Name="SaveEdit" Content="保存所有修改" HorizontalAlignment="Left" Margin="501,3,0,4" Width="90" Grid.Row="1" Click="SaveEdit_Click"/>
+        <Button x:Name="AddNewRow" Content="添加新一行" HorizontalAlignment="Left" Margin="596,3,0,4" Width="74" Grid.Row="1" Click="AddNewRow_Click"/>
+        <Button x:Name="DelCheckRow" Content="删除勾选行" HorizontalAlignment="Left" Margin="675,3,0,4" Width="75" Grid.Row="1" Click="DelCheckRow_Click"/>
+        <Button x:Name="AllChoose" Content="全部勾选" HorizontalAlignment="Left" Margin="755,3,0,4" Width="75" Grid.Row="1" Click="AllChoose_Click"/>
+        <Button x:Name="ChooseBack" Content="取消勾选" Margin="835,3,0,4" Grid.Row="1" HorizontalAlignment="Left" Width="75" Click="ChooseBack_Click"/>
+        <Button x:Name="ChooseRev" Content="反转勾选" Margin="915,3,0,4" Grid.Row="1" HorizontalAlignment="Left" Width="75" Click="ChooseRev_Click"/>
+        <Button x:Name="EditBack" Content="取消所有修改" Margin="406,3,0,4" HorizontalAlignment="Left" Width="90" Grid.Row="1" Click="EditBack_Click"/>
+        <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Height="16" Width="340" Margin="4,2,0,0" Grid.Row="1"><Run Text="注：变更查找内容会丢失所有修改，"/><Run Text="变更前"/><Run Text="请及时保存"/><Run Language="zh-cn" Text="所有修改"/></TextBlock>
+        <TextBlock x:Name="Lasttime" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Height="18" Width="342" Margin="2,18,0,0" Grid.Row="1" Text="最近保存时间："/>
+        <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Height="20" Width="40" FontSize="16" Margin="184,0,0,0"><Run Text="/"/><Run Language="zh-cn" Text="名称"/></TextBlock>
+        <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Height="20" Width="56" FontSize="16" Margin="344,0,0,0"><Run Text="/"/><Run Language="zh-cn" Text="管理员"/></TextBlock>
+        <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Height="20" Width="75" FontSize="16" Margin="460,0,0,0"><Run Text="/"/><Run Language="zh-cn" Text="容纳人数"/></TextBlock>
+        <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Height="20" Width="75" FontSize="16" Margin="596,0,0,0"><Run Text="/"/><Run Language="zh-cn" Text="电脑配置"/></TextBlock>
+        <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Height="20" Width="87" FontSize="16" Margin="731,0,0,0"><Run Text="/"/><Run Language="zh-cn" Text="安装的软件"/></TextBlock>
+    </Grid>
+</Page>
